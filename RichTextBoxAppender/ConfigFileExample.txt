@@ -1,4 +1,4 @@
-﻿    <appender name="RichTextBoxAppender" type="log4net.Appender.RichTextBoxAppender">
+﻿    <appender name="RichTextBoxAppender" type="log4net.Appender.RichTextBoxAppender, RichTextBoxAppender">
       <mapping>
         <level value="WARN" />
         <foreColor value="OrangeRed" />
