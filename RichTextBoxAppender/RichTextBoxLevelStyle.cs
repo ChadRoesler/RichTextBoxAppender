@@ -2,7 +2,7 @@
 using System.Drawing;
 using log4net.Util;
 
-namespace log4net
+namespace log4net.Appender
 {
     public class LevelTextStyle : LevelMappingEntry
     {

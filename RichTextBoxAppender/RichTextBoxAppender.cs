@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using log4net.Appender;
 using log4net.Core;
 using log4net.Util;
 
-namespace log4net
+namespace log4net.Appender
 {
     public class RichTextBoxAppender : AppenderSkeleton
     {
@@ -13,6 +12,7 @@ namespace log4net
         private Form containerForm = null;
         private LevelMapping levelMapping = new LevelMapping();
         private int maxTextLength = 100000;
+        internal bool clearOnFormClose = true;
 
         public RichTextBoxAppender() : base()
         {
@@ -30,8 +30,10 @@ namespace log4net
                 {
                     if (containerForm != null)
                     {
-                        containerForm.FormClosed -= new FormClosedEventHandler(containerForm_FormClosed);
-                        containerForm.Shown -= new EventHandler(containerForm_Shown);
+                        if (clearOnFormClose)
+                        {
+                            containerForm.FormClosed -= new FormClosedEventHandler(containerForm_FormClosed);
+                        }
                         containerForm = null;
                     }
 
@@ -41,8 +43,10 @@ namespace log4net
                         value.HideSelection = false;
 
                         containerForm = value.FindForm();
-                        containerForm.FormClosed += new FormClosedEventHandler(containerForm_FormClosed);
-                        containerForm.Shown += new EventHandler(containerForm_Shown);
+                        if (clearOnFormClose)
+                        {
+                            containerForm.FormClosed += new FormClosedEventHandler(containerForm_FormClosed);
+                        }
                     }
 
                     richtextBox = value;
@@ -146,18 +150,15 @@ namespace log4net
             RichTextBoxToAppendTo = null;
         }
 
-        private void containerForm_Shown(object sender, EventArgs e)
-        {
-            RichTextBoxToAppendTo.Clear();
-        }
-
         protected override void OnClose()
         {
             base.OnClose();
             if (containerForm != null)
             {
-                containerForm.FormClosed -= new FormClosedEventHandler(containerForm_FormClosed);
-                containerForm.Shown -= new EventHandler(containerForm_Shown);
+                if (clearOnFormClose)
+                {
+                    containerForm.FormClosed -= new FormClosedEventHandler(containerForm_FormClosed);
+                }
                 containerForm = null;
             }
         }
@@ -171,8 +172,9 @@ namespace log4net
             }
         }
 
+
         /// <summary>
-        /// Set the RichTextBox and Appender using the default buffer size of 100000
+        /// Set the RichTextBox and Appender using all defaults
         /// </summary>
         /// <param name="richTextBox"></param>
         /// <param name="appenderName"></param>
@@ -198,7 +200,7 @@ namespace log4net
         }
 
         /// <summary>
-        /// Set the RichTextBox, Appender, and MaxBufferLength
+        /// Set the RichTextBox, Appender, and MaxBufferLength, and when to do the clearing.
         /// </summary>
         /// <param name="richTextBox"></param>
         /// <param name="appenderName"></param>
@@ -216,6 +218,35 @@ namespace log4net
                     {
                         ((RichTextBoxAppender)appender).RichTextBoxToAppendTo = richTextBox;
                         ((RichTextBoxAppender)appender).MaxBufferLength = maxBufferLength;
+                        return true;
+                    }
+                    break;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Set the RichTextBox, Appender, and MaxBufferLength, and when to do the clearing.
+        /// </summary>
+        /// <param name="richTextBox"></param>
+        /// <param name="appenderName"></param>
+        /// <param name="maxBufferLength"></param>
+        /// <param name="clearFormClose"></param>
+        /// <returns></returns>
+        public static bool SetRichTextBox(RichTextBox richTextBox, string appenderName, int maxBufferLength, bool clearFormClose)
+        {
+            if (appenderName == null) return false;
+            IAppender[] appenders = LogManager.GetRepository().GetAppenders();
+            foreach (IAppender appender in appenders)
+            {
+                if (appender.Name == appenderName)
+                {
+                    if (appender is RichTextBoxAppender)
+                    {
+                        ((RichTextBoxAppender)appender).RichTextBoxToAppendTo = richTextBox;
+                        ((RichTextBoxAppender)appender).MaxBufferLength = maxBufferLength;
+                        ((RichTextBoxAppender)appender).clearOnFormClose = clearFormClose;
                         return true;
                     }
                     break;

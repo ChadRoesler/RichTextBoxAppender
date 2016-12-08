@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RichTextBoxAppender")]
-[assembly: AssemblyDescription("For logging to a RichTextBox")]
+[assembly: AssemblyDescription("For logging to a RichTextBox.  Based off the work found here: http://osdir.com/ml/log.log4net.user/2008-04/msg00023.html")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Chad Roesler")]
 [assembly: AssemblyProduct("RichTextBoxAppender")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
