@@ -10,6 +10,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Initial packaged release.</releaseNotes>
-    <tags>Octopus</tags>
+    <tags>Log4net RichTextBox</tags>
   </metadata>
 </package>
