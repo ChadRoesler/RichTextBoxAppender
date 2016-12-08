@@ -3,6 +3,8 @@
 Based off of the work found here:
 http://osdir.com/ml/log.log4net.user/2008-04/msg00023.html
 
+All credit goes to this post, just added some modifications I thought would be usefull.
+
 #WindowsForm Example:
 ```C#
 public frmOctopusManagerTask()
