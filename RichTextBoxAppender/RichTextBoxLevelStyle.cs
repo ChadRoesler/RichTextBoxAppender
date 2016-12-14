@@ -14,6 +14,7 @@ namespace log4net.Appender
         private float pointSize = 0.0f;
         private bool bold = false;
         private bool italic = false;
+        private bool underline = false;
         private string fontFamilyName = null;
         private Font font = null;
 
@@ -78,6 +79,18 @@ namespace log4net.Appender
             }
         }
 
+        public bool IsUnderline
+        {
+            get
+            {
+                return underline;
+            }
+            set
+            {
+                underline = value;
+            }
+        }
+
         public float PointSize
         {
             get
@@ -109,7 +122,10 @@ namespace log4net.Appender
             {
                 fontStyle |= FontStyle.Italic;
             }
-
+            if(underline)
+            {
+                fontStyle |= FontStyle.Underline;
+            }
             if (fontFamilyName != null)
             {
                 float size = pointSize > 0.0f ? pointSize : 8.25f;
