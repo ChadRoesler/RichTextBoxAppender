@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/ChadRoesler/RichTextBoxAppender-Log4Net</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial packaged release.</releaseNotes>
+    <releaseNotes>Addition of IsUnderline.</releaseNotes>
     <tags>Log4net RichTextBox</tags>
   </metadata>
 </package>
