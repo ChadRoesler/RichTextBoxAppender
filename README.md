@@ -7,7 +7,7 @@ All credit goes to this post, just added some modifications I thought would be u
 
 #WindowsForm Example:
 ```C#
-public frmOctopusManagerTask()
+public frmForYourHealth()
 {
     InitializeComponent();
     RichTextBoxAppender.SetRichTextBox(rtbLogging, "RichTextBoxAppender");
